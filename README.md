@@ -118,9 +118,38 @@ Whenever client send a request, the request should have token as value of Author
 Once server receive the request with header having token, need to verify whether the token was originally created in Server
 (RSA, HS256)
 
+#Log-in Trial for JWT
+create PrincipalDetails and PrincipalDetailsService classes.
+![img_20.png](img_20.png)
+
+Use postman to login
+![img_21.png](img_21.png)
+
+PrinceipalDetailsService is running when http://localhost:8080/login request.
 
 
+ Spring Security has UsernamePasswordAuthenticationFilter
+ on POST request with username, password, if this information is delivered
+ then, UsernamePasswordAuthenticationFilter is operating.
+ within security config, once formlogin disabled, this filter is not operationg.
+ to operate this filter. go to SecurityConfig and add this filter
+ addFilter(new JWtAuthentication)
+Within SecurityConfig, add this
+ .addFilter(new JwtAuthenticationFilter(authenticationManager())) // AuthenticationManager
+In here, authenticationManager is returning to JWTAuthnticationFilter
+Inside JWTAuthenticationFilter class, overide attmpAuthntication
+Whenever /login request, to try to login, the below method is running.
+![img_23.png](img_23.png)
 
+![img_22.png](img_22.png)
 
+Inside attemptAuthentication method, should check the request object value including
+username and password.
+1. receive username, password
+2. whether the above information is ok or not, try log in with authenticationManager.
+3. PrincipalDetailsService is being called and loadUserByUsername() method is executing.
+4. put PrincipalDetails into session ( What if session does not have PrincipalDetails, we can not do access rights)
+5. Create JWT token and response it
+  
 
 
