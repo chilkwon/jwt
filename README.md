@@ -96,6 +96,31 @@ What if you want a filter before spring security, then you have to add like belo
 ![img_16.png](img_16.png)
 # You will be using this Filters for Token Process
 
+# Test Temporary Token
+Step 1. will send a token request through postman and Myfilter 1 will 
+grab the request and filtering the request Header's value
+![img_18.png](img_18.png)
+In here, we use "corse" as Header key(Authorization)'s value.
+
+In order to use POST, need to create one method inside of controller.
+![img_17.png](img_17.png)
+
+post man testing screen
+![img_19.png](img_19.png)
+
+The above example, Filter3 is always running before security config.
+Therefore, Filter3.java has all current filter setting.<br>
+
+# Token creation and process
+our token "corse" should be created. if user login process completed with normal
+user id/pw, then need to create a token and response the token.
+Whenever client send a request, the request should have token as value of Authorization in Header.
+Once server receive the request with header having token, need to verify whether the token was originally created in Server
+(RSA, HS256)
+
+
+
+
 
 
 
